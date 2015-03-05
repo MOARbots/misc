@@ -1,0 +1,24 @@
+//this is a code snippet from StreamData.cpp that computes the angle of a tag by comparing the tag center and one tag corner
+
+		//Using uc.x, uc.y, the central coordinates, and up[0].x, up[0].y, one of the corner coordinates, we now compute the rotation 
+		float myX = up[0].x - uc.x;
+		float myY = up[0].y - uc.y;
+		float myR = 0;
+		if ((myX >= 0 && myY >= 0) || (myX >=0 && myY <0)) {
+			if (myY == 0) { myY = 0.00001; }
+			if (myX == 0) { myX = 0.00001; }//just in case we ever get (un)lucky, don't divide by zero
+			myR = atan((myY/myX));
+		}
+		else if ((myX <0 && myY <0) || (myX <0 && myY >=0) ) {
+			if (myY == 0) { myY = 0.00001; }
+			if (myX == 0) { myX = 0.00001; }//just in case we ever get (un)lucky, don't divide by zero
+			myR = atan((myY/myX)) + M_PI;	
+		}
+		myR = myR +M_PI/2 + M_PI/4;
+		if (myR >2*M_PI){
+			myR = myR-2*M_PI;		
+		}
+
+		myR = myR * (180.00/M_PI);
+		myR = 360-myR;
+
